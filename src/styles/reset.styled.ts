@@ -39,6 +39,10 @@ const ResetCSS = css`
     line-height: 1;
   }
 
+  a {
+    text-decoration: none;
+  }
+  
   menu, ol, ul {
     list-style: none;
   }
