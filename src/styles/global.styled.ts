@@ -5,8 +5,12 @@ const GlobalStyle = createGlobalStyle`
   ${ResetCSS}
 
   body {
-    background-color: #D9E6F6;
+    background-color: ${({ theme }) => theme.mainBackgroundColor};
     font-family: sans-serif;
+  }
+
+  #__next {
+    min-height: 100vh;
   }
 `
 
