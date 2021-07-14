@@ -1,26 +1,30 @@
 import styled from 'styled-components'
 import Box from '../components/Box'
 import GridArea from '../components/GridArea'
+import Header from '../components/Header'
 
 export default function Home() {
     return (
-        <MainGrid>
-            <GridArea areaName="profileArea">
-                <Box>
-                    <p>profileArea</p>
-                </Box>
-            </GridArea>
-            <GridArea areaName="welcomeArea">
-                <Box>
-                    <p>welcomeArea</p>
-                </Box>
-            </GridArea>
-            <GridArea areaName="profileRelationsArea">
-                <Box>
-                    <p>profileRelationsArea</p>
-                </Box>
-            </GridArea>
-        </MainGrid>
+        <>
+            <Header />
+            <MainGrid>
+                <GridArea areaName="profileArea">
+                    <Box>
+                        <p>profileArea</p>
+                    </Box>
+                </GridArea>
+                <GridArea areaName="welcomeArea">
+                    <Box>
+                        <p>welcomeArea</p>
+                    </Box>
+                </GridArea>
+                <GridArea areaName="profileRelationsArea">
+                    <Box>
+                        <p>profileRelationsArea</p>
+                    </Box>
+                </GridArea>
+            </MainGrid>
+        </>
     )
 }
 
