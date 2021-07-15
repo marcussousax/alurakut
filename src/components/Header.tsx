@@ -3,36 +3,36 @@ import styled from 'styled-components'
 import { media } from '../styles/global.styled'
 
 interface IHeader {
-
+    user: string
 }
 
-const Header: React.FC<IHeader> = (props) => {
+function Header({ user }: IHeader) {
     return (
-        <HeaderRoot>
-            <h1><a href="#">Alurakut</a></h1>
-            <AppMenu>
-                <ul>
-                    <li><a href="">Início</a></li>
-                    <li><a href="">Perfil</a></li>
-                    <li><a href="">Página de recados</a></li>
-                    <li><a href="">Amigos</a></li>
-                    <li><a href="">Comunidades</a></li>
-                </ul>
-            </AppMenu>
-            <UserMenu>
-                <ul>
-                    <li>seuemail@email.com.br</li>
-                    <li><a href="">Sair</a></li>
-                </ul>
-            </UserMenu>
-            <AppSearch placeholder="Pesquisar no Orkut" />
-        </HeaderRoot>
+        <>
+            <Header.Wrapper>
+                <h1><a href="#">Alurakut</a></h1>
+                <AppMenu>
+                    <ul>
+                        <li><a href="">Início</a></li>
+                        <li><a href="">Perfil</a></li>
+                        <li><a href="">Página de recados</a></li>
+                        <li><a href="">Amigos</a></li>
+                        <li><a href="">Comunidades</a></li>
+                    </ul>
+                </AppMenu>
+                <UserMenu>
+                    <ul>
+                        <li>{user}</li>
+                        <li><a href="">Sair</a></li>
+                    </ul>
+                </UserMenu>
+                <AppSearch placeholder="Pesquisar no Orkut" />
+            </Header.Wrapper>
+        </>
     )
 }
 
-export default Header
-
-const HeaderRoot = styled.header`
+Header.Wrapper = styled.header`
   background-color: ${({ theme }) => theme.blue1};
   color: ${({ theme }) => theme.blue3};
   display: grid;
@@ -49,6 +49,10 @@ const HeaderRoot = styled.header`
     color: ${({ theme }) => theme.white};
   }
 `
+
+export default Header
+
+
 const AppMenu = styled.menu`
 
   ${media.large} {
