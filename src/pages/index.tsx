@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import styled from 'styled-components'
 import Box from '../components/Box'
 import GridArea from '../components/GridArea'
@@ -10,8 +11,8 @@ export default function Home() {
             <Header />
             <MainGrid>
                 <GridArea areaName="profileArea">
-                    <Box>
-                        <p>profileArea</p>
+                    <Box css={`padding: 10px`}>
+                        <Image src="https://github.com/marcussousax.png" alt="User Logo" width={121} height={121} />
                     </Box>
                 </GridArea>
                 <GridArea areaName="welcomeArea">
