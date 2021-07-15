@@ -55,6 +55,12 @@ const ResetCSS = css`
   q:before, q:after {
     content: none;
   }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
 
   table {
     border-collapse: collapse;

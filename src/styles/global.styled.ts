@@ -1,8 +1,10 @@
 import { createGlobalStyle } from 'styled-components'
 import ResetCSS from './reset.styled'
+import { AlurakutStyles } from '../lib/AlurakutCommons'
 
 const GlobalStyle = createGlobalStyle`
   ${ResetCSS}
+  ${AlurakutStyles}
   body {
     background-color: ${({ theme }) => theme.mainBackgroundColor};
     font-family: sans-serif;
@@ -10,6 +12,8 @@ const GlobalStyle = createGlobalStyle`
 
   #__next {
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 `
 
