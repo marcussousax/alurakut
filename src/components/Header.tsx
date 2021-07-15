@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { media } from '../styles/global.styled'
+import { AlurakutMenu } from '../lib/AlurakutCommons'
 
 interface IHeader {
     user: string
@@ -9,25 +10,7 @@ interface IHeader {
 function Header({ user }: IHeader) {
     return (
         <>
-            <Header.Wrapper>
-                <h1><a href="#">Alurakut</a></h1>
-                <AppMenu>
-                    <ul>
-                        <li><a href="">Início</a></li>
-                        <li><a href="">Perfil</a></li>
-                        <li><a href="">Página de recados</a></li>
-                        <li><a href="">Amigos</a></li>
-                        <li><a href="">Comunidades</a></li>
-                    </ul>
-                </AppMenu>
-                <UserMenu>
-                    <ul>
-                        <li>{user}</li>
-                        <li><a href="">Sair</a></li>
-                    </ul>
-                </UserMenu>
-                <AppSearch placeholder="Pesquisar no Orkut" />
-            </Header.Wrapper>
+            <AlurakutMenu githubUser={user} />
         </>
     )
 }

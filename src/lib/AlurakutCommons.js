@@ -122,6 +122,7 @@ AlurakutMenu.Wrapper = styled.header`
       display: none;
       @media(min-width: 860px) {
         display: flex;
+        align-items: center;
       }
       a {
         font-size: 12px;
