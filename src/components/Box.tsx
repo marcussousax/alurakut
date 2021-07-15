@@ -1,7 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { CSSObject, CSSProp } from 'styled-components'
 
-const Box = styled.div`
+interface IBox {
+    css?: CSSProp | CSSObject
+}
+
+const Box = styled.div<IBox>`
   background-color: #fff;
 `
 
