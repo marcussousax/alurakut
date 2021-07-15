@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Box from '../components/Box'
 import GridArea from '../components/GridArea'
 import Header from '../components/Header'
+import { media } from '../styles/global.styled'
 
 export default function Home() {
     return (
@@ -33,7 +34,7 @@ const MainGrid = styled.main`
   gap: 10px;
   padding: 16px;
 
-  @media (min-width: 860px) {
+  ${media.large} {
     display: grid;
     grid-template-areas: "profileArea welcomeArea profileRelationsArea";
     grid-template-columns: 160px 1fr 312px;

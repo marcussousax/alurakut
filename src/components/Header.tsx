@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { media } from '../styles/global.styled'
 
 interface IHeader {
 
@@ -38,7 +39,8 @@ const HeaderRoot = styled.header`
   align-items: center;
   gap: 10px;
   padding: 16px;
-  @media (min-width: 860px) {
+
+  ${media.large} {
     grid-template-columns: 100px 1fr 200px 200px;
     min-height: calc(48px - 32px);
   }
@@ -48,13 +50,19 @@ const HeaderRoot = styled.header`
   }
 `
 const AppMenu = styled.menu`
-  ul {
-    display: flex;
+
+  ${media.large} {
+    ul {
+      display: flex;
+    }
   }
+
 `
 const UserMenu = styled.menu`
-  ul {
-    display: flex;
+  ${media.large} {
+    ul {
+      display: flex;
+    }
   }
 `
 const AppSearch = styled.input<React.InputHTMLAttributes<any>>`
