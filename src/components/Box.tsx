@@ -7,6 +7,8 @@ interface IBox {
 
 const Box = styled.div<IBox>`
   background-color: #fff;
+  border-radius: 8px;
+  padding: 16px;
 `
 
 export default Box
