@@ -6,11 +6,13 @@ import Header from '../components/Header'
 import { media } from '../styles/global.styled'
 import React from 'react'
 import Profile from '../components/Profile'
+import RelationsBox from '../components/RelationsBox'
 
 
 export default function Home() {
 
     const user = 'marcussousax'
+    const communityPersons = ['marcussousax', 'provi', 'jvrmaia', 'TheOfficialFloW', 'Rinnegatamante']
 
     return (
         <>
@@ -28,9 +30,7 @@ export default function Home() {
                         </Box>
                     </GridArea>
                     <GridArea areaName="profileRelationsArea">
-                        <Box>
-                            <p>profileRelationsArea</p>
-                        </Box>
+                        <RelationsBox items={communityPersons} />
                     </GridArea>
                 </MainGrid>
             </MainGridWrapper>

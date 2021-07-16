@@ -10,8 +10,20 @@ function Profile(props: { user: string }) {
     const { user } = props
 
     return (
-        <Profile.Box>
-            <Image src={`https://github.com/${user}.png`} alt="User Logo" width={100} height={100} />
+        <Profile.Box as="aside">
+            <Image
+                src={`https://github.com/${user}.png`}
+                alt={`${user} avatar`}
+                width={460}
+                height={460}
+            />
+            <hr />
+            <p>
+                <a className="boxLink" href={`https://github.com/${user}`}>
+                    @{user}
+                </a>
+            </p>
+            <hr />
             <AlurakutProfileSidebarMenuDefault />
         </Profile.Box>
     )
