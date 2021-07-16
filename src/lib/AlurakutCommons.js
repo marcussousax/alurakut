@@ -1,6 +1,6 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
-import NextLink from 'next/link';
+import React from 'react'
+import styled, { css } from 'styled-components'
+import NextLink from 'next/link'
 
 const BASE_URL = 'http://alurakut.vercel.app/';
 const v = '1';
@@ -172,7 +172,7 @@ function AlurakutMenuProfileSidebar({ githubUser }) {
   return (
     <div className="alurakutMenuProfileSidebar">
       <div>
-        <img src={`https://github.com/${githubUser}.png`} style={{ borderRadius: '8px' }} />
+        <img src={`https://github.com/${githubUser}.png`} alt={`${githubUser} avatar`} style={{ borderRadius: '8px' }} />
         <hr />
         <p>
           <a className="boxLink" href={`/user/${githubUser}`}>
