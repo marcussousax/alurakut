@@ -7,6 +7,7 @@ import { common, media } from '../styles/global.styled'
 import React from 'react'
 import Profile from '../components/Profile'
 import RelationsBox from '../components/RelationsBox'
+import CommunitiesBox from '../components/CommunitiesBox'
 
 
 export default function Home() {
@@ -29,8 +30,14 @@ export default function Home() {
                             <OrkutNostalgicIconSet />
                         </Box>
                     </GridArea>
-                    <GridArea areaName="profileRelationsArea">
+                    <GridArea
+                        areaName="profileRelationsArea"
+                        css={`
+                          display: grid;
+                          gap: ${common.GAP}
+                        `}>
                         <RelationsBox items={communityPersons} />
+                        <CommunitiesBox items={communityPersons} />
                     </GridArea>
                 </MainGrid>
             </MainGridWrapper>
@@ -40,9 +47,11 @@ export default function Home() {
 
 const MainGrid = styled.main`
   max-width: 1110px;
-  gap: 10px;
-  padding: 16px;
+  gap: ${common.GAP};
+  padding: ${common.PADDING};
   flex: 1;
+  display: flex;
+  flex-direction: column;
 
   ${media.large} {
     display: grid;
