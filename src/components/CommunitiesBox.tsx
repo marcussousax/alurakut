@@ -5,14 +5,14 @@ import Image from 'next/image'
 import Box from './Box'
 import { common } from '../styles/global.styled'
 
-interface IRelationsBox {
+interface ICommunitiesBox {
     items: string[]
 }
 
-const RelationsBox = ({ items }: IRelationsBox) => {
+const CommunitiesBox = ({ items }: ICommunitiesBox) => {
     return (
-        <RelationsBox.Wrapper>
-            <h2 className="smallTitle">Meus amigos ({items.length})</h2>
+        <CommunitiesBox.Wrapper>
+            <h2 className="smallTitle">Minhas comunidades ({items.length})</h2>
             <ul>
                 {items.map((person, index) => (
                     <li key={index}>
@@ -27,10 +27,10 @@ const RelationsBox = ({ items }: IRelationsBox) => {
                     </li>
                 ))}
             </ul>
-        </RelationsBox.Wrapper>
+        </CommunitiesBox.Wrapper>
     )
 }
-RelationsBox.Wrapper = styled(Box)`
+CommunitiesBox.Wrapper = styled(Box)`
   ul {
     display: grid;
     grid-gap: ${common.GAP};
@@ -84,4 +84,4 @@ RelationsBox.Wrapper = styled(Box)`
   }
 `
 
-export default RelationsBox
+export default CommunitiesBox

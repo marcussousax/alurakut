@@ -1,5 +1,6 @@
 import React from 'react'
 import styled, { CSSObject, CSSProp } from 'styled-components'
+import { common } from '../styles/global.styled'
 
 interface IBox {
     css?: CSSProp | CSSObject
@@ -8,7 +9,7 @@ interface IBox {
 const Box = styled.div<IBox>`
   background-color: #fff;
   border-radius: 8px;
-  padding: 16px;
+  padding: ${common.PADDING};
 
 
   //  Copied from Alurakut Commons
@@ -50,7 +51,7 @@ const Box = styled.div<IBox>`
     background-color: #F4F4F4;
     color: #333333;
     border: 0;
-    padding: 14px 16px;
+    padding: ${common.PADDING};
     margin-bottom: 14px;
     border-radius: 10000px;
 

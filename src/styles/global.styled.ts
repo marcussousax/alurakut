@@ -2,6 +2,11 @@ import { createGlobalStyle } from 'styled-components'
 import ResetCSS from './reset.styled'
 import { AlurakutStyles } from '../lib/AlurakutCommons'
 
+export const common = {
+    GAP: '10px',
+    PADDING: '16px'
+}
+
 const GlobalStyle = createGlobalStyle`
   ${ResetCSS}
   ${AlurakutStyles}

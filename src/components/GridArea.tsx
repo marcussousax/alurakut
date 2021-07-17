@@ -1,12 +1,13 @@
-import styled, { css } from 'styled-components'
+import styled, { css, CSSObject, CSSProp } from 'styled-components'
 
 interface IGridArea {
-    readonly areaName?: string | undefined
+    areaName?: string | undefined
+    css?: CSSProp | CSSObject
 }
 
 const GridArea = styled.div<IGridArea>`
   ${({ areaName }) => css`
-    grid-area: ${areaName};
+    grid-area: ${areaName}
   `}
 `
 

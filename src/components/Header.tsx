@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { media } from '../styles/global.styled'
+import { common, media } from '../styles/global.styled'
 import { AlurakutMenu } from '../lib/AlurakutCommons'
 
 interface IHeader {
@@ -20,8 +20,8 @@ Header.Wrapper = styled.header`
   color: ${({ theme }) => theme.blue3};
   display: grid;
   align-items: center;
-  gap: 10px;
-  padding: 16px;
+  gap: ${common.GAP};
+  padding: ${common.PADDING};
 
   ${media.large} {
     grid-template-columns: 100px 1fr 200px 200px;
