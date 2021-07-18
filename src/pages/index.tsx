@@ -9,11 +9,31 @@ import Profile from '../components/Profile'
 import RelationsBox from '../components/RelationsBox'
 import CommunitiesBox from '../components/CommunitiesBox'
 
+export interface ICommunity {
+    title: string
+    image?: string | number
+}
 
 export default function Home() {
 
     const user = 'marcussousax'
-    const communityPersons = ['marcussousax', 'provi', 'jvrmaia', 'TheOfficialFloW', 'Rinnegatamante']
+    const favoritePersons = ['marcussousax', 'provi', 'jvrmaia', 'TheOfficialFloW', 'Rinnegatamante']
+
+    const [communities, setCommunities] = React.useState<ICommunity[]>([
+        { title: 'Game Emulation', image: 300 },
+        { title: 'Guitars', image: 350 }
+    ])
+
+    function handleSubmit(ev: React.FormEvent<HTMLFormElement>,
+                          state: ICommunity[],
+                          hook: { (value: React.SetStateAction<ICommunity[]>): void; (arg0: any[]): void }) {
+        ev.preventDefault()
+        const formData = new FormData(ev.target as HTMLFormElement)
+        hook([...state, {
+            title: formData.get('title'),
+            image: formData.get('image')
+        }])
+    }
 
     return (
         <>
@@ -23,11 +43,31 @@ export default function Home() {
                     <GridArea areaName="profileArea">
                         <Profile user={user} />
                     </GridArea>
-                    <GridArea areaName="welcomeArea">
+                    <GridArea areaName="welcomeArea" css={`
+                      display: flex;
+                      gap: 10px;
+                      flex-direction: column;
+                    `}>
                         <Box css={`padding: 24px`}>
                             <h1 className={'title'}>Bem-vindo(a), {user}</h1>
                             <p>Sorte de hoje: O melhor profeta do futuro é o passado</p>
                             <OrkutNostalgicIconSet />
+                        </Box>
+                        <Box>
+                            <h2 className={'subTitle'}>O que você deseja fazer?</h2>
+                            <form
+                                onSubmit={(ev) => handleSubmit(ev, communities, setCommunities)}>
+                                <input type="text"
+                                       name="title"
+                                       placeholder="Qual vai ser o nome da sua comunidade?"
+                                       aria-label="Qual vai ser o nome da sua comunidade?"
+                                />
+                                <input name="image"
+                                       placeholder="URL da imagem"
+                                       aria-label="Image URL"
+                                />
+                                <button>Criar</button>
+                            </form>
                         </Box>
                     </GridArea>
                     <GridArea
@@ -36,8 +76,8 @@ export default function Home() {
                           display: grid;
                           gap: ${common.GAP}
                         `}>
-                        <RelationsBox items={communityPersons} />
-                        <CommunitiesBox items={communityPersons} />
+                        <RelationsBox items={favoritePersons} />
+                        <CommunitiesBox items={communities} />
                     </GridArea>
                 </MainGrid>
             </MainGridWrapper>

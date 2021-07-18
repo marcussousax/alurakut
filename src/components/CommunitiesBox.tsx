@@ -4,9 +4,10 @@ import Image from 'next/image'
 
 import Box from './Box'
 import { common } from '../styles/global.styled'
+import { ICommunity } from '../pages'
 
 interface ICommunitiesBox {
-    items: string[]
+    items: ICommunity[]
 }
 
 const CommunitiesBox = ({ items }: ICommunitiesBox) => {
@@ -14,15 +15,17 @@ const CommunitiesBox = ({ items }: ICommunitiesBox) => {
         <CommunitiesBox.Wrapper>
             <h2 className="smallTitle">Minhas comunidades ({items.length})</h2>
             <ul>
-                {items.map((person, index) => (
+                {items.map((community, index) => (
                     <li key={index}>
-                        <a rel="noreferrer" href={`https://github.com/${person}`} target="_blank">
-                            <Image src={`https://github.com/${person}.png`}
-                                   alt={`${person} avatar`}
+                        <a rel="noreferrer"
+                           href={`https://github.com/${community.title.split(' ').join('-').toLowerCase()}`}
+                           target="_blank">
+                            <Image src={`https://picsum.photos/${community.image}`}
+                                   alt={`${community.title} avatar`}
                                    width={460}
                                    height={460}
                             />
-                            <span>{person}</span>
+                            <span>{community.title}</span>
                         </a>
                     </li>
                 ))}
