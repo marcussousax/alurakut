@@ -8,6 +8,7 @@ import React from 'react'
 import Profile from '../components/Profile'
 import RelationsBox from '../components/RelationsBox'
 import CommunitiesBox from '../components/CommunitiesBox'
+import FollowersBox from '../components/FollowersBox'
 
 export interface ICommunity {
     title: string
@@ -24,6 +25,8 @@ export default function Home() {
         { title: 'Guitars', image: 350 }
     ])
 
+    const [followers, setFollowers] = React.useState([])
+
     function handleSubmit(ev: React.FormEvent<HTMLFormElement>,
                           state: ICommunity[],
                           hook: { (value: React.SetStateAction<ICommunity[]>): void; (arg0: any[]): void }) {
@@ -34,6 +37,18 @@ export default function Home() {
             image: formData.get('image')
         }])
     }
+
+    React.useEffect(() => {
+        fetch('https://api.github.com/users/marcussousax/followers')
+            .then((res) => {
+                if (res.ok) {
+                    return res.json()
+                }
+                throw new Error(`Error on Req -> ${res}`)
+            })
+            .then((res) => setFollowers(res))
+            .catch((err) => console.error(err))
+    }, [])
 
     return (
         <>
@@ -76,6 +91,7 @@ export default function Home() {
                           display: grid;
                           gap: ${common.GAP}
                         `}>
+                        <FollowersBox items={followers} />
                         <RelationsBox items={favoritePersons} />
                         <CommunitiesBox items={communities} />
                     </GridArea>
