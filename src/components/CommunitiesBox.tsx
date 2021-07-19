@@ -15,12 +15,12 @@ const CommunitiesBox = ({ items }: ICommunitiesBox) => {
         <CommunitiesBox.Wrapper>
             <h2 className="smallTitle">Minhas comunidades ({items.length})</h2>
             <ul>
-                {items.map((community, index) => (
-                    <li key={index}>
+                {items.map((community) => (
+                    <li key={community.id}>
                         <a rel="noreferrer"
-                           href={`https://github.com/${community.title.split(' ').join('-').toLowerCase()}`}
+                           href={`/communities/${community.title.split(' ').join('-').toLowerCase()}`}
                            target="_blank">
-                            <Image src={`https://picsum.photos/${community.image}`}
+                            <Image src={`${community.imageUrl}`}
                                    alt={`${community.title} avatar`}
                                    width={460}
                                    height={460}

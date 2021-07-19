@@ -1,4 +1,3 @@
-import styled from 'styled-components'
 import { OrkutNostalgicIconSet } from '../lib/AlurakutCommons'
 import Box from '../components/Box'
 import GridArea from '../components/GridArea'
@@ -9,10 +8,13 @@ import Profile from '../components/Profile'
 import RelationsBox from '../components/RelationsBox'
 import CommunitiesBox from '../components/CommunitiesBox'
 import FollowersBox from '../components/FollowersBox'
+import styled from 'styled-components'
 
 export interface ICommunity {
+    creatorSlug: string
+    id: string
+    imageUrl: string
     title: string
-    image?: string | number
 }
 
 export default function Home() {
@@ -20,35 +22,68 @@ export default function Home() {
     const user = 'marcussousax'
     const favoritePersons = ['marcussousax', 'provi', 'jvrmaia', 'TheOfficialFloW', 'Rinnegatamante']
 
-    const [communities, setCommunities] = React.useState<ICommunity[]>([
-        { title: 'Game Emulation', image: 300 },
-        { title: 'Guitars', image: 350 }
-    ])
+    const [communities, setCommunities] = React.useState<ICommunity[]>([])
 
     const [followers, setFollowers] = React.useState([])
 
-    function handleSubmit(ev: React.FormEvent<HTMLFormElement>,
-                          state: ICommunity[],
-                          hook: { (value: React.SetStateAction<ICommunity[]>): void; (arg0: any[]): void }) {
+    function handleSubmit(ev: React.FormEvent<HTMLFormElement>) {
         ev.preventDefault()
         const formData = new FormData(ev.target as HTMLFormElement)
-        hook([...state, {
-            title: formData.get('title'),
-            image: formData.get('image')
-        }])
+
+        fetch('/api/communities', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                creatorSlug: 'marcussousax',
+                title: formData.get('title'),
+                imageUrl: formData.get('image')
+            })
+        })
+            .then(async res => {
+                const newRecord = await res.json()
+                setCommunities([...communities, newRecord.record])
+                console.log(newRecord.record)
+            })
     }
 
     React.useEffect(() => {
-        fetch('https://api.github.com/users/marcussousax/followers')
-            .then((res) => {
-                if (res.ok) {
-                    return res.json()
-                }
-                throw new Error(`Error on Req -> ${res}`)
+            fetch('https://api.github.com/users/marcussousax/followers')
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    }
+                    throw new Error(`Error on Req -> ${res}`)
+                })
+                .then((res) => setFollowers(res))
+                .catch((err) => console.error(err))
+
+            fetch('https://graphql.datocms.com/', {
+                method: 'POST',
+                headers: {
+                    'Authorization': process.env.DATOCMS_TOKEN,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({
+                    query: `query {
+                  allCommunities {
+                    id
+                    title
+                    creatorSlug
+                    imageUrl
+                  }
+                }  `
+                })
             })
-            .then((res) => setFollowers(res))
-            .catch((err) => console.error(err))
-    }, [])
+                .then(async (res) => {
+                    const response = await res.json()
+                    setCommunities(response.data.allCommunities)
+                })
+                .catch((err) => console.error(err))
+        }, []
+    )
 
     return (
         <>
@@ -71,7 +106,7 @@ export default function Home() {
                         <Box>
                             <h2 className={'subTitle'}>O que você deseja fazer?</h2>
                             <form
-                                onSubmit={(ev) => handleSubmit(ev, communities, setCommunities)}>
+                                onSubmit={(ev) => handleSubmit(ev)}>
                                 <input type="text"
                                        name="title"
                                        placeholder="Qual vai ser o nome da sua comunidade?"
