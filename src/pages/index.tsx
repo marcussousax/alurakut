@@ -9,6 +9,9 @@ import RelationsBox from '../components/RelationsBox'
 import CommunitiesBox from '../components/CommunitiesBox'
 import FollowersBox from '../components/FollowersBox'
 import styled from 'styled-components'
+import nookies from 'nookies'
+import jwt from 'jsonwebtoken'
+import { NextApiRequest, NextPageContext } from 'next'
 
 export interface ICommunity {
     creatorSlug: string
@@ -17,10 +20,11 @@ export interface ICommunity {
     title: string
 }
 
-export default function Home() {
+export default function Home(props: { githubUser: string }) {
+    const { githubUser } = props
 
-    const user = 'marcussousax'
-    const favoritePersons = ['marcussousax', 'provi', 'jvrmaia', 'TheOfficialFloW', 'Rinnegatamante']
+    const user = githubUser
+    const [favoritePersons, setFavoritePersons] = React.useState([])
 
     const [communities, setCommunities] = React.useState<ICommunity[]>([])
 
@@ -36,7 +40,7 @@ export default function Home() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                creatorSlug: 'marcussousax',
+                creatorSlug: user,
                 title: formData.get('title'),
                 imageUrl: formData.get('image')
             })
@@ -49,7 +53,17 @@ export default function Home() {
     }
 
     React.useEffect(() => {
-            fetch('https://api.github.com/users/marcussousax/followers')
+            fetch(`https://api.github.com/users/${user}/following`)
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json()
+                    }
+                    throw new Error(`Error on Req -> ${res}`)
+                })
+                .then((res) => setFavoritePersons(res))
+                .catch((err) => console.error(err))
+
+            fetch(`https://api.github.com/users/${user}/followers`)
                 .then((res) => {
                     if (res.ok) {
                         return res.json()
@@ -67,14 +81,15 @@ export default function Home() {
                     'Accept': 'application/json',
                 },
                 body: JSON.stringify({
-                    query: `query {
-                  allCommunities {
-                    id
-                    title
-                    creatorSlug
-                    imageUrl
-                  }
-                }  `
+                    query:
+                        `query {
+                        allCommunities(filter: {creatorSlug: {eq: "${user}"}}) {
+                            id
+                            title
+                            creatorSlug
+                            imageUrl
+                        }
+                    }`
                 })
             })
                 .then(async (res) => {
@@ -82,7 +97,7 @@ export default function Home() {
                     setCommunities(response.data.allCommunities)
                 })
                 .catch((err) => console.error(err))
-        }, []
+        }, [user]
     )
 
     return (
@@ -156,3 +171,32 @@ const MainGridWrapper = styled.section`
   display: flex;
   justify-content: center;
 `
+
+export async function getServerSideProps(context: Pick<NextPageContext, 'req'> | { req: NextApiRequest } | { req: any } | null | undefined) {
+
+    const cookies = nookies.get(context)
+    const token = jwt.decode(cookies.USER_TOKEN)
+
+    const { isAuthenticated } = await fetch('https://alurakut.vercel.app/api/auth', {
+        headers: {
+            Authorization: cookies.USER_TOKEN
+        }
+    }).then(res => res.json())
+    console.log({ isAuthenticated })
+
+    if (!isAuthenticated) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+            // @ts-ignore
+            githubUser: token.githubUser
+        }, // will be passed to the page component as props
+    }
+}
