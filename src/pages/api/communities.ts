@@ -5,7 +5,7 @@ import { SiteClient } from 'datocms-client'
 const TOKEN = process.env.DATOCMS_TOKEN
 const client = new SiteClient(TOKEN)
 
-export default async function createCommunity(request, response): Promise<void> {
+export default async function createCommunity(request: { method: string; body: any }, response: { json: (arg0: { record: any }) => void; status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string }): void; new(): any } } }): Promise<void> {
 
     if (request.method === 'POST') {
         // TODO: We need to validate this before

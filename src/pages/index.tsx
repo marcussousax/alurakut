@@ -62,7 +62,7 @@ export default function Home() {
             fetch('https://graphql.datocms.com/', {
                 method: 'POST',
                 headers: {
-                    'Authorization': process.env.DATOCMS_TOKEN,
+                    'Authorization': process.env.DATOCMS_TOKEN!,
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
