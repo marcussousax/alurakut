@@ -2,7 +2,7 @@
   "name": "alurakut",
   "description": "Projeto de imersão React da Alura cuja a intenção é reviver o Orkut",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,11 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/jsonwebtoken": "^8.5.4",
+    "@types/jsonwebtoken": "8.5.4",
     "datocms-client": "3.4.11",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "8.5.1",
     "next": "latest",
-    "nookies": "^2.5.2",
+    "nookies": "2.5.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-is": "17.0.2",
