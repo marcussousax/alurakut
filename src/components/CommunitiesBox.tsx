@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import Box from './Box'
 import { common } from '../styles/global.styled'
-import { ICommunity } from '../pages'
+import { ICommunity } from '../../pages'
 
 interface ICommunitiesBox {
     items: ICommunity[]
