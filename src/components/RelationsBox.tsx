@@ -5,8 +5,8 @@ import Image from 'next/image'
 import Box from './Box'
 import { common } from '../styles/global.styled'
 
-interface IRelationsBox {
-    items: string[]
+export interface IRelationsBox {
+    items: Record<string, boolean | string | number | undefined>[]
 }
 
 const RelationsBox = ({ items }: IRelationsBox) => {
@@ -16,13 +16,13 @@ const RelationsBox = ({ items }: IRelationsBox) => {
             <ul>
                 {items.map((person, index) => (
                     <li key={index}>
-                        <a rel="noreferrer" href={`https://github.com/${person}`} target="_blank">
-                            <Image src={`https://github.com/${person}.png`}
-                                   alt={`${person} avatar`}
+                        <a rel="noreferrer" href={`${person.html_url}`} target="_blank">
+                            <Image src={`${person.avatar_url}`}
+                                   alt={`${person.login} avatar`}
                                    width={460}
                                    height={460}
                             />
-                            <span>{person}</span>
+                            <span>{person.login}</span>
                         </a>
                     </li>
                 ))}
@@ -35,7 +35,8 @@ RelationsBox.Wrapper = styled(Box)`
     display: grid;
     grid-gap: ${common.GAP};
     grid-template-columns: 1fr 1fr 1fr;
-    max-height: 220px;
+    //max-height: 220px;
+    max-height: none;
     list-style: none;
   }
 

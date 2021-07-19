@@ -36,7 +36,8 @@ FollowersBox.Wrapper = styled(Box)`
     display: grid;
     grid-gap: ${common.GAP};
     grid-template-columns: 1fr 1fr 1fr;
-    max-height: 220px;
+    //max-height: 220px;
+    max-height: none;
     list-style: none;
   }
 
