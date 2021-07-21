@@ -6,7 +6,31 @@ interface IBox {
     css?: CSSProp | CSSObject
 }
 
-const Box = styled.div<IBox>`
+interface IItem {
+    html_url: string;
+    avatar_url: string;
+    login: string
+}
+
+const SimpleBox = ({
+                       title,
+                       titleSize,
+                       children,
+                       ...props
+                   }: { title?: string, titleSize?: 'big' | 'normal', children?: React.ReactNode }) => {
+    return (
+        <div {...props}>
+            {title && (
+                titleSize === 'big' ?
+                    <h1 className="title">{title}</h1> :
+                    <h2 className="smallTitle">{title}</h2>
+            )}
+            {children}
+        </div>
+    )
+}
+
+const Box = styled(SimpleBox)<IBox>`
   background-color: #fff;
   border-radius: 8px;
   padding: ${common.PADDING};
@@ -47,7 +71,7 @@ const Box = styled.div<IBox>`
   }
 
   input {
-    width: calc(100% - ${common.PADDING} * 2 );
+    width: calc(100% - ${common.PADDING} * 2);
     background-color: #F4F4F4;
     color: #333333;
     border: 0;

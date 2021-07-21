@@ -5,9 +5,7 @@ import Header from '../src/components/Header'
 import { common, media } from '../src/styles/global.styled'
 import React from 'react'
 import Profile from '../src/components/Profile'
-import RelationsBox from '../src/components/RelationsBox'
-import CommunitiesBox from '../src/components/CommunitiesBox'
-import FollowersBox from '../src/components/FollowersBox'
+import List from '../src/components/List'
 import styled from 'styled-components'
 import nookies from 'nookies'
 import jwt from 'jsonwebtoken'
@@ -113,13 +111,11 @@ export default function Home(props: { githubUser: string }) {
                       gap: 10px;
                       flex-direction: column;
                     `}>
-                        <Box css={`padding: 24px`}>
-                            <h1 className={'title'}>Bem-vindo(a), {user}</h1>
+                        <Box title={`Bem-vindo(a), ${user}`} titleSize="big" css={`padding: 24px`}>
                             <p>Sorte de hoje: O melhor profeta do futuro é o passado</p>
                             <OrkutNostalgicIconSet />
                         </Box>
-                        <Box>
-                            <h2 className={'subTitle'}>O que você deseja fazer?</h2>
+                        <Box title="Crie uma comunidade">
                             <form
                                 onSubmit={(ev) => handleSubmit(ev)}>
                                 <input type="text"
@@ -141,9 +137,19 @@ export default function Home(props: { githubUser: string }) {
                           display: grid;
                           gap: ${common.GAP}
                         `}>
-                        <FollowersBox items={followers} />
-                        <RelationsBox items={favoritePersons} />
-                        <CommunitiesBox items={communities} />
+                        <Box title={`Seguidores (${followers.length})`}>
+                            <List items={followers} />
+                        </Box>
+                        <Box title={`Seguindo (${favoritePersons.length})`}>
+                            <List items={favoritePersons} />
+                        </Box>
+                        <Box title={`Comunidades (${communities.length})`}>
+                            <List items={communities} remappedKeys={{
+                                url: 'html_url',
+                                imageURL: 'imageUrl',
+                                displayName: 'title'
+                            }} />
+                        </Box>
                     </GridArea>
                 </MainGrid>
             </MainGridWrapper>
